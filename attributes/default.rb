@@ -48,8 +48,8 @@ default['tomcat']['loglevel'] = 'INFO'
 default['tomcat']['tomcat_auth'] = 'true'
 default['tomcat']['instances'] = {}
 default['tomcat']['run_base_instance'] = true
-default['tomcat']['packages'] = lazy {["tomcat#{node['tomcat']['base_version']}"]}
-default['tomcat']['deploy_manager_packages'] = lazy{["tomcat#{node['tomcat']['base_version']}-admin"]}
+default['tomcat']['packages'] = [ lazy {"tomcat#{node['tomcat']['base_version']}"} ]
+default['tomcat']['deploy_manager_packages'] = [ lazy {"tomcat#{node['tomcat']['base_version']}-admin"} ]
 
 case node['platform_family']
 
@@ -70,8 +70,8 @@ when 'rhel', 'fedora'
   default['tomcat']['keytool'] = 'keytool'
   default['tomcat']['lib_dir'] = lazy {"#{node["tomcat"]["home"]}/lib"}
   default['tomcat']['endorsed_dir'] = lazy {"#{node["tomcat"]["lib_dir"]}/endorsed"}
-  default['tomcat']['packages'] = lazy {["tomcat#{suffix}"]}
-  default['tomcat']['deploy_manager_packages'] = lazy {["tomcat#{suffix}-admin-webapps"]}
+  default['tomcat']['packages'] = [ lazy {"tomcat#{suffix}"} ]
+  default['tomcat']['deploy_manager_packages'] = [ lazy {"tomcat#{suffix}-admin-webapps"} ]
 when 'debian'
   default['tomcat']['user'] = lazy {"tomcat#{node["tomcat"]["base_version"]}"}
   default['tomcat']['group'] = lazy {"tomcat#{node["tomcat"]["base_version"]}"}
